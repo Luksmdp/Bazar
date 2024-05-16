@@ -1,7 +1,6 @@
 package com.tpintegrador.bazar.service;
 
 import com.tpintegrador.bazar.model.Cliente;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

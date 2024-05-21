@@ -40,7 +40,6 @@ public class ProductoService implements IProductoService{
         if (productoRepository.existsById(productoNuevo.getCodigoProducto())) {
             Producto productoViejo = this.getProducto(productoNuevo.getCodigoProducto());
             productoViejo.setCosto(productoNuevo.getCosto());
-            productoViejo.setVenta(productoNuevo.getVenta());
             productoViejo.setNombre(productoNuevo.getNombre());
             productoViejo.setMarca(productoNuevo.getMarca());
             productoViejo.setCantidadDisponible(productoNuevo.getCantidadDisponible());

@@ -1,5 +1,6 @@
 package com.tpintegrador.bazar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,7 +15,4 @@ public class Producto {
     private String marca;
     private double costo;
     private double cantidadDisponible;
-    @ManyToOne
-    @JoinColumn(name = "venta_id")
-    private Venta venta;
 }

@@ -43,6 +43,7 @@ public class VentaService implements IVentaService{
             ventaVieja.setTotal(ventaNueva.getTotal());
             ventaVieja.setUnCliente(ventaNueva.getUnCliente());
             ventaVieja.setListaProductos(ventaNueva.getListaProductos());
+            this.saveVenta(ventaVieja);
         }
     }
 }

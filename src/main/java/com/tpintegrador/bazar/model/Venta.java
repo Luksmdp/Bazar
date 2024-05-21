@@ -13,7 +13,12 @@ public class Venta {
     private Long codigoVenta;
     private LocalDate fechaVenta;
     private double total;
-    @OneToMany(mappedBy = "venta")
+    @ManyToMany
+    @JoinTable(
+            name = "venta_producto",
+            joinColumns = @JoinColumn(name = "codigo_venta"),
+            inverseJoinColumns = @JoinColumn(name = "codigo_producto")
+    )
     private List<Producto> listaProductos;
     @ManyToOne
     @JoinColumn(name = "cliente_id")

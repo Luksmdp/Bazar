@@ -1,5 +1,6 @@
 package com.tpintegrador.bazar.service;
 
+import com.tpintegrador.bazar.model.Dto.ProductoDto;
 import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.repository.IProductoRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,12 @@ public class ProductoService implements IProductoService{
     }
 
     @Override
-    public void saveProducto(Producto producto) {
+    public void saveProducto(ProductoDto productoDto) {
+        Producto producto = new Producto();
+        producto.setNombre(productoDto.getNombre());
+        producto.setCosto(productoDto.getCosto());
+        producto.setMarca(productoDto.getMarca());
+        producto.setCantidadDisponible(productoDto.getCantidadDisponible());
         productoRepository.save(producto);
     }
 
@@ -36,14 +42,7 @@ public class ProductoService implements IProductoService{
     }
 
     @Override
-    public void updateProducto(Producto productoNuevo) {
-        if (productoRepository.existsById(productoNuevo.getCodigoProducto())) {
-            Producto productoViejo = this.getProducto(productoNuevo.getCodigoProducto());
-            productoViejo.setCosto(productoNuevo.getCosto());
-            productoViejo.setNombre(productoNuevo.getNombre());
-            productoViejo.setMarca(productoNuevo.getMarca());
-            productoViejo.setCantidadDisponible(productoNuevo.getCantidadDisponible());
-            productoRepository.save(productoViejo);
-        }
+    public void updateProducto(ProductoDto productoDto) {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.tpintegrador.bazar.controller;
 
 import com.tpintegrador.bazar.model.Cliente;
+import com.tpintegrador.bazar.model.Dto.ClienteDto;
 import com.tpintegrador.bazar.service.IClienteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class ClienteController {
     }
 
     @PostMapping("clientes/crear")
-    public void saveCliente(@RequestBody Cliente cliente){
-        clienteService.saveCliente(cliente);
+    public void saveCliente(@RequestBody ClienteDto clienteDto){
+        clienteService.saveCliente(clienteDto);
     }
 
     @DeleteMapping("clientes/eliminar/{idCliente}")
@@ -35,7 +36,7 @@ public class ClienteController {
     }
 
     @PutMapping("clientes/editar/{idCliente}")
-    public void updateCliente(@RequestBody Cliente cliente){
-        clienteService.updateCliente(cliente);
+    public void updateCliente(@RequestBody ClienteDto clienteDto){
+        clienteService.updateCliente(clienteDto);
     }
 }

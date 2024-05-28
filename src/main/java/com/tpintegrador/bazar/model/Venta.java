@@ -1,7 +1,9 @@
 package com.tpintegrador.bazar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,5 +24,6 @@ public class Venta {
     private List<Producto> listaProductos;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnoreProperties(value = "ventas")
     private Cliente unCliente;
 }

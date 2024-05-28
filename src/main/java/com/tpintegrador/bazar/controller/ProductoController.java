@@ -1,5 +1,6 @@
 package com.tpintegrador.bazar.controller;
 
+import com.tpintegrador.bazar.model.Dto.ProductoDto;
 import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.service.IProductoService;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class ProductoController {
     }
 
     @PostMapping("productos/crear")
-    public void saveProducto(@RequestBody Producto producto){
-        productoService.saveProducto(producto);
+    public void saveProducto(@RequestBody ProductoDto productoDto){
+        productoService.saveProducto(productoDto);
     }
 
     @DeleteMapping("productos/eliminar/{codigoProducto}")
@@ -36,7 +37,7 @@ public class ProductoController {
     }
 
     @PutMapping("productos/editar/{codigoProducto}")
-    public void updateProducto(@RequestBody Producto producto){
-        productoService.updateProducto(producto);
+    public void updateProducto(@RequestBody ProductoDto productoDto){
+        productoService.updateProducto(productoDto);
     }
 }

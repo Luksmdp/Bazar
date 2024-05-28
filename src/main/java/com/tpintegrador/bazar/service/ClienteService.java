@@ -1,6 +1,7 @@
 package com.tpintegrador.bazar.service;
 
 import com.tpintegrador.bazar.model.Cliente;
+import com.tpintegrador.bazar.model.Dto.ClienteDto;
 import com.tpintegrador.bazar.repository.IClienteRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,12 @@ public class ClienteService implements IClienteService{
     }
 
     @Override
-    public void saveCliente(Cliente cliente) {
+    public void saveCliente(ClienteDto clienteDto) {
+        Cliente cliente = new Cliente();
+        cliente.setDni(clienteDto.getDni());
+        cliente.setNombre(clienteDto.getNombre());
+        cliente.setApellido(clienteDto.getApellido());
+        cliente.setDni(clienteDto.getDni());
         clienteRepository.save(cliente);
     }
 
@@ -35,13 +41,7 @@ public class ClienteService implements IClienteService{
     }
 
     @Override
-    public void updateCliente(Cliente clienteNuevo) {
-        if (clienteRepository.existsById(clienteNuevo.getIdCliente())) {
-            Cliente clienteViejo = this.getCliente(clienteNuevo.getIdCliente());
-            clienteViejo.setNombre(clienteNuevo.getNombre());
-            clienteViejo.setApellido(clienteNuevo.getApellido());
-            clienteViejo.setDni(clienteNuevo.getDni());
-            clienteRepository.save(clienteViejo);
-        }
+    public void updateCliente(ClienteDto clienteDto) {
+
     }
 }

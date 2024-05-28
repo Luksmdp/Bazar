@@ -1,5 +1,6 @@
 package com.tpintegrador.bazar.controller;
 
+import com.tpintegrador.bazar.model.Dto.VentaDto;
 import com.tpintegrador.bazar.model.Venta;
 import com.tpintegrador.bazar.service.IVentaService;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class VentaController {
     }
 
     @PostMapping("ventas/crear")
-    public void saveVenta(@RequestBody Venta venta){
-        ventaService.saveVenta(venta);
+    public void saveVenta(@RequestBody VentaDto ventaDto){
+        ventaService.saveVenta(ventaDto);
     }
 
     @DeleteMapping("ventas/eliminar/{codigoVenta}")
@@ -36,7 +37,7 @@ public class VentaController {
     }
 
     @PutMapping("ventas/editar/{codigoVenta}")
-    public void updateVenta(@RequestBody Venta venta){
-        ventaService.updateVenta(venta);
+    public void updateVenta(@RequestBody VentaDto ventaDto,@PathVariable Long codigoVenta){
+        ventaService.updateVenta(ventaDto,codigoVenta);
     }
 }

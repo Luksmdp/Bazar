@@ -15,5 +15,5 @@ public interface IClienteService {
 
     public Cliente getCliente(Long id);
 
-    public void updateCliente(ClienteDto clienteDto);
+    public void updateCliente(ClienteDto clienteDto, Long idCliente);
 }

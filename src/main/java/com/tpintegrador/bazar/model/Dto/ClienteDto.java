@@ -10,5 +10,4 @@ public class ClienteDto {
     private String nombre;
     private String apellido;
     private String dni;
-    private List<Venta> ventas;
 }

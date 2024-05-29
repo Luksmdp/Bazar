@@ -26,22 +26,41 @@ public class ClienteService implements IClienteService{
         cliente.setDni(clienteDto.getDni());
         cliente.setNombre(clienteDto.getNombre());
         cliente.setApellido(clienteDto.getApellido());
-        cliente.setDni(clienteDto.getDni());
         clienteRepository.save(cliente);
     }
 
     @Override
     public void deleteCliente(Long id) {
-        clienteRepository.deleteById(id);
+        if (clienteRepository.existsById(id)) {
+            clienteRepository.deleteById(id);
+        }
+        else {
+            throw new IllegalArgumentException("El cliente con id: " + id + " no existe");
+        }
     }
 
     @Override
     public Cliente getCliente(Long id) {
-        return clienteRepository.findById(id).orElse(null);
+        if (clienteRepository.existsById(id)) {
+            return clienteRepository.findById(id).orElse(null);
+        }
+        else {
+            throw new IllegalArgumentException("El cliente con id: " + id + " no existe");
+        }
     }
 
     @Override
-    public void updateCliente(ClienteDto clienteDto) {
+    public void updateCliente(ClienteDto clienteDto, Long idCliente) {
 
+        if (clienteRepository.findById(idCliente).isPresent()){
+            Cliente clienteGuardado = clienteRepository.findById(idCliente).orElse(null);
+            clienteGuardado.setDni(clienteDto.getDni());
+            clienteGuardado.setNombre(clienteDto.getNombre());
+            clienteGuardado.setApellido(clienteDto.getApellido());
+            clienteRepository.save(clienteGuardado);
+        }
+        else {
+            throw new IllegalArgumentException("El cliente con id: " + idCliente + " no existe");
+        }
     }
 }

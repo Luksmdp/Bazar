@@ -36,7 +36,7 @@ public class ClienteController {
     }
 
     @PutMapping("clientes/editar/{idCliente}")
-    public void updateCliente(@RequestBody ClienteDto clienteDto){
-        clienteService.updateCliente(clienteDto);
+    public void updateCliente(@RequestBody ClienteDto clienteDto,@PathVariable Long idCliente){
+        clienteService.updateCliente(clienteDto,idCliente);
     }
 }

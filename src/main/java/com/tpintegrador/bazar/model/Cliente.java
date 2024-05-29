@@ -1,5 +1,7 @@
 package com.tpintegrador.bazar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +19,6 @@ public class Cliente {
     private String dni;
 
     @OneToMany(mappedBy = "unCliente")
+    @JsonIgnore
     private List<Venta> ventas;
 }

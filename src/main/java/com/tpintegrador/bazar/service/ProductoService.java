@@ -33,16 +33,37 @@ public class ProductoService implements IProductoService{
 
     @Override
     public void deleteProducto(Long id) {
-        productoRepository.deleteById(id);
+        if (productoRepository.existsById(id)) {
+            productoRepository.deleteById(id);
+        }
+        else {
+            throw new IllegalArgumentException("El producto con id: " + id + " no existe");
+        }
     }
 
     @Override
     public Producto getProducto(Long id) {
-        return productoRepository.findById(id).orElse(null);
+        if (productoRepository.existsById(id)) {
+            return productoRepository.findById(id).orElse(null);
+        }
+        else {
+            throw new IllegalArgumentException("El producto con ID: "+ id + " no existe");
+        }
     }
 
     @Override
-    public void updateProducto(ProductoDto productoDto) {
+    public void updateProducto(ProductoDto productoDto, Long codigoProducto) {
 
+        if (productoRepository.findById(codigoProducto).isPresent()) {
+            Producto productoGuardado = productoRepository.findById(codigoProducto).get();
+            productoGuardado.setNombre(productoDto.getNombre());
+            productoGuardado.setMarca(productoDto.getMarca());
+            productoGuardado.setCosto(productoDto.getCosto());
+            productoGuardado.setCantidadDisponible(productoDto.getCantidadDisponible());
+            productoRepository.save(productoGuardado);
+        }
+        else {
+            throw new IllegalArgumentException("El producto con ID: "+ codigoProducto + " no existe");
+        }
     }
 }

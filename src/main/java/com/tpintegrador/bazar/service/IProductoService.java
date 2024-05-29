@@ -15,5 +15,5 @@ public interface IProductoService {
 
     public Producto getProducto(Long id);
 
-    public void updateProducto(ProductoDto productoDto);
+    public void updateProducto(ProductoDto productoDto, Long codigoProducto);
 }

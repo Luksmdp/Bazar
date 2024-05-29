@@ -37,7 +37,7 @@ public class ProductoController {
     }
 
     @PutMapping("productos/editar/{codigoProducto}")
-    public void updateProducto(@RequestBody ProductoDto productoDto){
-        productoService.updateProducto(productoDto);
+    public void updateProducto(@RequestBody ProductoDto productoDto,@PathVariable Long codigoProducto){
+        productoService.updateProducto(productoDto,codigoProducto);
     }
 }

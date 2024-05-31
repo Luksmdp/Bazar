@@ -23,11 +23,12 @@ public class ProductoService implements IProductoService{
 
     @Override
     public void saveProducto(ProductoDto productoDto) {
-        Producto producto = new Producto();
-        producto.setNombre(productoDto.getNombre());
-        producto.setCosto(productoDto.getCosto());
-        producto.setMarca(productoDto.getMarca());
-        producto.setCantidadDisponible(productoDto.getCantidadDisponible());
+        Producto producto = Producto.builder()
+                .nombre(productoDto.getNombre())
+                .costo(productoDto.getCosto())
+                .marca(productoDto.getMarca())
+                .cantidadDisponible(productoDto.getCantidadDisponible())
+                .build();
         productoRepository.save(producto);
     }
 

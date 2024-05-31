@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface IClienteService {
 
-    public List<Cliente> getClientes();
+    List<Cliente> getClientes();
 
-    public void saveCliente(ClienteDto clienteDto);
+    void saveCliente(ClienteDto clienteDto);
 
-    public void deleteCliente(Long id);
+    void deleteCliente(Long id);
 
-    public Cliente getCliente(Long id);
+    Cliente getCliente(Long id);
 
-    public void updateCliente(ClienteDto clienteDto, Long idCliente);
+    void updateCliente(ClienteDto clienteDto, Long idCliente);
 }

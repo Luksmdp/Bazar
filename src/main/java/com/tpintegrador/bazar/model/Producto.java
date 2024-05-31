@@ -1,18 +1,24 @@
 package com.tpintegrador.bazar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long codigoProducto;
+    @NonNull
     private String nombre;
+    @NonNull
     private String marca;
-    private double costo;
-    private double cantidadDisponible;
+    @NonNull
+    private Double costo;
+    @NonNull
+    private Double cantidadDisponible;
 }

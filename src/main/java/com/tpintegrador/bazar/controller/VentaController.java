@@ -27,7 +27,7 @@ public class VentaController {
     }
 
     @PostMapping("ventas/crear")
-    public void saveVenta(@RequestBody VentaDto ventaDto){
+    public void saveVenta(@RequestBody VentaDto ventaDto) throws Exception{
         ventaService.saveVenta(ventaDto);
     }
 

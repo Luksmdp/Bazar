@@ -22,10 +22,11 @@ public class ClienteService implements IClienteService{
 
     @Override
     public void saveCliente(ClienteDto clienteDto) {
-        Cliente cliente = new Cliente();
-        cliente.setDni(clienteDto.getDni());
-        cliente.setNombre(clienteDto.getNombre());
-        cliente.setApellido(clienteDto.getApellido());
+        Cliente cliente = Cliente.builder()
+                .dni(clienteDto.getDni())
+                .nombre(clienteDto.getNombre())
+                .apellido(clienteDto.getApellido())
+                .build();
         clienteRepository.save(cliente);
     }
 

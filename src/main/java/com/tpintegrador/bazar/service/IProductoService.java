@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface IProductoService {
 
-    public List<Producto> getProductos();
+    List<Producto> getProductos();
 
-    public void saveProducto(ProductoDto productoDto);
+    void saveProducto(ProductoDto productoDto);
 
-    public void deleteProducto(Long id);
+    void deleteProducto(Long id);
 
-    public Producto getProducto(Long id);
+    Producto getProducto(Long id);
 
-    public void updateProducto(ProductoDto productoDto, Long codigoProducto);
+    void updateProducto(ProductoDto productoDto, Long codigoProducto);
 }

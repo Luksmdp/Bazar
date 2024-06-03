@@ -67,4 +67,11 @@ public class ProductoService implements IProductoService{
             throw new IllegalArgumentException("El producto con ID: "+ codigoProducto + " no existe");
         }
     }
+
+    @Override
+    public List<Producto> faltaStock() {
+        List<Producto> listaProductos = productoRepository.findAll();
+        listaProductos.removeIf(producto -> (producto.getCantidadDisponible() >= 5));
+        return listaProductos;
+    }
 }

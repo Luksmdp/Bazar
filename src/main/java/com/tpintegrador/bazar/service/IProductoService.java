@@ -16,4 +16,6 @@ public interface IProductoService {
     Producto getProducto(Long id);
 
     void updateProducto(ProductoDto productoDto, Long codigoProducto);
+
+    List<Producto> faltaStock();
 }

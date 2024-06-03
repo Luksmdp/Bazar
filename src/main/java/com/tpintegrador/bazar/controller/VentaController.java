@@ -1,6 +1,7 @@
 package com.tpintegrador.bazar.controller;
 
 import com.tpintegrador.bazar.model.Dto.VentaDto;
+import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.model.Venta;
 import com.tpintegrador.bazar.service.IVentaService;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class VentaController {
     @GetMapping("ventas/{codigoVenta}")
     public Venta getVenta(@PathVariable Long codigoVenta){
         return ventaService.getVenta(codigoVenta);
+    }
+
+    @GetMapping("ventas/productos/{codigoVenta}")
+    public List<Producto> getProductosDeVenta(@PathVariable Long codigoVenta){
+        return ventaService.getProductosDeVenta(codigoVenta);
     }
 
     @PostMapping("ventas/crear")

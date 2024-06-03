@@ -26,6 +26,11 @@ public class ProductoController {
         return productoService.getProducto(codigoProducto);
     }
 
+    @GetMapping("productos/falta_stock")
+    public List<Producto> faltaStock(){
+        return productoService.faltaStock();
+    }
+
     @PostMapping("productos/crear")
     public void saveProducto(@RequestBody ProductoDto productoDto){
         productoService.saveProducto(productoDto);

@@ -1,6 +1,5 @@
 package com.tpintegrador.bazar.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,26 +7,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Entity
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Cliente {
-
+@AllArgsConstructor
+public class VentaDetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCliente;
+    private Long id;
     @NotNull
-    private String nombre;
+    @ManyToOne
+    @JoinColumn(name = "codigo_producto")
+    private Producto producto;
     @NotNull
-    private String apellido;
+    @ManyToOne
+    @JoinColumn(name = "codigo_venta")
+    private Venta venta;
     @NotNull
-    private String dni;
-
-    @OneToMany(mappedBy = "unCliente")
-    @JsonIgnore
-    private List<Venta> ventas;
+    private Long cantidadProducto;
 }

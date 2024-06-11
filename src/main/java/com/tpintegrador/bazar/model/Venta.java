@@ -2,6 +2,7 @@ package com.tpintegrador.bazar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,23 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 public class Venta {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigoVenta;
-    @NonNull
+    @NotNull
     private LocalDate fechaVenta;
-    @NonNull
+    @NotNull
     private Double total;
-    @NonNull
-    @ManyToMany
-    @JoinTable(
-            name = "venta_producto",
-            joinColumns = @JoinColumn(name = "codigo_venta"),
-            inverseJoinColumns = @JoinColumn(name = "codigo_producto")
-    )
-    private List<Producto> listaProductos;
-    @NonNull
+    @NotNull
+    @OneToMany(mappedBy = "venta")
+    private List<VentaDetalle> listaVentaDetalle;
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonIgnoreProperties(value = "ventas")
     private Cliente unCliente;
 }

@@ -1,7 +1,9 @@
 package com.tpintegrador.bazar.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
 
 @Data
 @Entity
@@ -11,14 +13,15 @@ import lombok.*;
 public class Producto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigoProducto;
-    @NonNull
+    @NotNull
     private String nombre;
-    @NonNull
+    @NotNull
     private String marca;
-    @NonNull
+    @NotNull
     private Double costo;
-    @NonNull
+    @NotNull
     private Double cantidadDisponible;
+
 }

@@ -1,13 +1,16 @@
 package com.tpintegrador.bazar.controller;
 
-import com.tpintegrador.bazar.model.Dto.VentaDto;
-import com.tpintegrador.bazar.model.Producto;
+import com.tpintegrador.bazar.model.dto.MayorVentaDto;
+import com.tpintegrador.bazar.model.dto.MontoFechaDto;
+import com.tpintegrador.bazar.model.dto.VentaDto;
 import com.tpintegrador.bazar.model.Venta;
+import com.tpintegrador.bazar.model.VentaDetalle;
 import com.tpintegrador.bazar.service.IVentaService;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @Validated
 @RestController
@@ -30,7 +33,7 @@ public class VentaController {
     }
 
     @GetMapping("ventas/productos/{codigoVenta}")
-    public List<Producto> getProductosDeVenta(@Valid @PathVariable Long codigoVenta){
+    public List<VentaDetalle> getProductosDeVenta(@Valid @PathVariable Long codigoVenta){
         return ventaService.getProductosDeVenta(codigoVenta);
     }
 
@@ -48,4 +51,15 @@ public class VentaController {
     public void updateVenta(@Valid @RequestBody VentaDto ventaDto,@Valid @PathVariable Long codigoVenta){
         ventaService.updateVenta(ventaDto,codigoVenta);
     }
+
+    @GetMapping("ventas/dia/{fechaVenta}")
+    public MontoFechaDto getVentasPorDia(@Valid @PathVariable LocalDate fechaVenta){
+        return ventaService.getVentasPorDia(fechaVenta);
+    }
+
+    @GetMapping("ventas/mayor_venta")
+    public MayorVentaDto getMayorVenta(){
+        return ventaService.getMayorVenta();
+    }
+
 }

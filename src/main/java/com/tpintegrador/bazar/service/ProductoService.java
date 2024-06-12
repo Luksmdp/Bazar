@@ -1,6 +1,6 @@
 package com.tpintegrador.bazar.service;
 
-import com.tpintegrador.bazar.model.Dto.ProductoDto;
+import com.tpintegrador.bazar.model.dto.ProductoDto;
 import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.repository.IProductoRepository;
 import org.springframework.stereotype.Service;
@@ -71,7 +71,7 @@ public class ProductoService implements IProductoService{
     @Override
     public List<Producto> faltaStock() {
         List<Producto> listaProductos = productoRepository.findAll();
-        listaProductos.removeIf(producto -> (producto.getCantidadDisponible() >= 5));
+        listaProductos.removeIf(producto -> producto.getCantidadDisponible() >=5);
         return listaProductos;
     }
 }

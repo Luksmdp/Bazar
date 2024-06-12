@@ -1,8 +1,6 @@
 package com.tpintegrador.bazar.service;
 
-import com.tpintegrador.bazar.model.Cliente;
-import com.tpintegrador.bazar.model.Dto.ClienteDto;
-import com.tpintegrador.bazar.model.Dto.VentaDetalleDto;
+import com.tpintegrador.bazar.model.dto.VentaDetalleDto;
 import com.tpintegrador.bazar.model.VentaDetalle;
 
 import java.util.List;

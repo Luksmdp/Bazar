@@ -1,8 +1,10 @@
 package com.tpintegrador.bazar.service;
 
 import com.tpintegrador.bazar.model.Cliente;
-import com.tpintegrador.bazar.model.Dto.VentaDetalleDto;
-import com.tpintegrador.bazar.model.Dto.VentaDto;
+import com.tpintegrador.bazar.model.dto.MayorVentaDto;
+import com.tpintegrador.bazar.model.dto.MontoFechaDto;
+import com.tpintegrador.bazar.model.dto.VentaDetalleDto;
+import com.tpintegrador.bazar.model.dto.VentaDto;
 import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.model.Venta;
 import com.tpintegrador.bazar.model.VentaDetalle;
@@ -13,6 +15,7 @@ import com.tpintegrador.bazar.repository.IVentaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,14 +149,48 @@ public class VentaService implements IVentaService{
     }
 
     @Override
-    public List<Producto> getProductosDeVenta(Long codigoVenta) {
-        /*if (ventaRepository.findById(codigoVenta).isPresent()) {
-            List<Producto> listaProductos = ventaRepository.findById(codigoVenta).get().getListaProductos();
-            return listaProductos;
+    public List<VentaDetalle> getProductosDeVenta(Long codigoVenta) {
+        if (ventaRepository.findById(codigoVenta).isPresent()) {
+            List<VentaDetalle> ventaDetalleList = ventaRepository.findById(codigoVenta).get().getListaVentaDetalle();
+            return ventaDetalleList;
         }else {
             throw new IllegalArgumentException("La venta con ID: " +codigoVenta+ " no existe");
-        }*/
-        return null;
+        }
+    }
+
+    @Override
+    public MontoFechaDto getVentasPorDia(LocalDate fechaVenta) {
+
+        MontoFechaDto montoFechaDto = new MontoFechaDto();
+        montoFechaDto.setVentasPorDia(0);
+        montoFechaDto.setMontoTotalPorDia(0.0);
+        List<Venta> ventaList = ventaRepository.findByFechaVenta(fechaVenta);
+        for (Venta venta:ventaList){
+            montoFechaDto.setVentasPorDia(montoFechaDto.getVentasPorDia() + 1);
+            montoFechaDto.setMontoTotalPorDia(montoFechaDto.getMontoTotalPorDia()+ venta.getTotal());
+        }
+        return montoFechaDto;
+    }
+
+    @Override
+    public MayorVentaDto getMayorVenta() {
+
+        List<Venta> ventaList = ventaRepository.findAll();
+        Venta ventaMayor = new Venta();
+        ventaMayor.setTotal(0.0);
+        for (Venta venta: ventaList){
+            if (venta.getTotal()> ventaMayor.getTotal()){
+                ventaMayor = venta;
+            }
+        }
+
+        MayorVentaDto mayorVentaDto = new MayorVentaDto();
+        mayorVentaDto.setCodigoVenta(ventaMayor.getCodigoVenta());
+        mayorVentaDto.setTotal(ventaMayor.getTotal());
+        mayorVentaDto.setApellidoCliente(ventaMayor.getUnCliente().getApellido());
+        mayorVentaDto.setNombreCliente(ventaMayor.getUnCliente().getNombre());
+        //mayorVentaDto.setCantidadProductos(ventaMayor.getListaVentaDetalle().get().getCantidadProducto());
+        return mayorVentaDto;
     }
 
 }

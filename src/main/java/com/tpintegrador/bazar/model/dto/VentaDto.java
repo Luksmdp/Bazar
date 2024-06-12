@@ -1,6 +1,5 @@
-package com.tpintegrador.bazar.model.Dto;
+package com.tpintegrador.bazar.model.dto;
 
-import com.tpintegrador.bazar.model.VentaDetalle;
 import lombok.Data;
 
 import java.time.LocalDate;

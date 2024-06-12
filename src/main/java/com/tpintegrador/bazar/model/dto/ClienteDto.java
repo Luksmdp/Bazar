@@ -1,4 +1,4 @@
-package com.tpintegrador.bazar.model.Dto;
+package com.tpintegrador.bazar.model.dto;
 
 import lombok.Data;
 

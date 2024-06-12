@@ -1,6 +1,6 @@
 package com.tpintegrador.bazar.service;
 
-import com.tpintegrador.bazar.model.Dto.VentaDetalleDto;
+import com.tpintegrador.bazar.model.dto.VentaDetalleDto;
 import com.tpintegrador.bazar.model.Producto;
 import com.tpintegrador.bazar.model.Venta;
 import com.tpintegrador.bazar.model.VentaDetalle;

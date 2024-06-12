@@ -1,7 +1,7 @@
 package com.tpintegrador.bazar.controller;
 
 import com.tpintegrador.bazar.model.Cliente;
-import com.tpintegrador.bazar.model.Dto.ClienteDto;
+import com.tpintegrador.bazar.model.dto.ClienteDto;
 import com.tpintegrador.bazar.service.IClienteService;
 import org.springframework.web.bind.annotation.*;
 

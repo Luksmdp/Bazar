@@ -6,6 +6,8 @@ import com.tpintegrador.bazar.repository.IProductoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ProductoService implements IProductoService{
 
@@ -55,8 +57,10 @@ public class ProductoService implements IProductoService{
     @Override
     public void updateProducto(ProductoDto productoDto, Long codigoProducto) {
 
-        if (productoRepository.findById(codigoProducto).isPresent()) {
-            Producto productoGuardado = productoRepository.findById(codigoProducto).get();
+        Optional<Producto> productoOptional = productoRepository.findById(codigoProducto);
+
+        if (productoOptional.isPresent()) {
+            Producto productoGuardado = productoOptional.get();
             productoGuardado.setNombre(productoDto.getNombre());
             productoGuardado.setMarca(productoDto.getMarca());
             productoGuardado.setCosto(productoDto.getCosto());

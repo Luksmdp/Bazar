@@ -6,6 +6,8 @@ import com.tpintegrador.bazar.repository.IClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClienteService implements IClienteService{
 
@@ -53,12 +55,13 @@ public class ClienteService implements IClienteService{
     @Override
     public void updateCliente(ClienteDto clienteDto, Long idCliente) {
 
-        if (clienteRepository.findById(idCliente).isPresent()){
-            Cliente clienteGuardado = clienteRepository.findById(idCliente).orElse(null);
-            clienteGuardado.setDni(clienteDto.getDni());
-            clienteGuardado.setNombre(clienteDto.getNombre());
-            clienteGuardado.setApellido(clienteDto.getApellido());
-            clienteRepository.save(clienteGuardado);
+        Optional<Cliente> clienteGuardado = clienteRepository.findById(idCliente);
+
+        if (clienteGuardado.isPresent()){
+            clienteGuardado.get().setDni(clienteDto.getDni());
+            clienteGuardado.get().setNombre(clienteDto.getNombre());
+            clienteGuardado.get().setApellido(clienteDto.getApellido());
+            clienteRepository.save(clienteGuardado.get());
         }
         else {
             throw new IllegalArgumentException("El cliente con id: " + idCliente + " no existe");

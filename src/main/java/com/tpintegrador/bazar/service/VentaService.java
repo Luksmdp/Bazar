@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VentaService implements IVentaService{
@@ -40,7 +41,7 @@ public class VentaService implements IVentaService{
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveVenta(VentaDto ventaDto) throws Exception {
+    public void saveVenta(VentaDto ventaDto) {
         Cliente cliente = clienteRepository.findById(ventaDto.getIdCliente()).orElseThrow(
                 () -> new IllegalArgumentException("El cliente con ID: " + ventaDto.getIdCliente() + " no existe")
         );
@@ -68,7 +69,7 @@ public class VentaService implements IVentaService{
             );
 
             if (productoGuardado.getCantidadDisponible() < ventaDetalleDto.getCantidadProducto()) {
-                throw new Exception("Insuficiente cantidad del producto: " + productoGuardado.getNombre());
+                throw new IllegalArgumentException("Insuficiente cantidad del producto: " + productoGuardado.getNombre());
             }
 
             productoGuardado.setCantidadDisponible(productoGuardado.getCantidadDisponible() - ventaDetalleDto.getCantidadProducto());
@@ -150,9 +151,10 @@ public class VentaService implements IVentaService{
 
     @Override
     public List<VentaDetalle> getProductosDeVenta(Long codigoVenta) {
-        if (ventaRepository.findById(codigoVenta).isPresent()) {
-            List<VentaDetalle> ventaDetalleList = ventaRepository.findById(codigoVenta).get().getListaVentaDetalle();
-            return ventaDetalleList;
+
+        Optional<Venta> ventaOptional = ventaRepository.findById(codigoVenta);
+        if (ventaOptional.isPresent()) {
+            return ventaOptional.get().getListaVentaDetalle();
         }else {
             throw new IllegalArgumentException("La venta con ID: " +codigoVenta+ " no existe");
         }
@@ -164,7 +166,7 @@ public class VentaService implements IVentaService{
         MontoFechaDto montoFechaDto = new MontoFechaDto();
         montoFechaDto.setVentasPorDia(0);
         montoFechaDto.setMontoTotalPorDia(0.0);
-        List<Venta> ventaList = ventaRepository.findByFechaVenta(fechaVenta);
+        List<Venta> ventaList = ventaRepository.findByFechaVenta(fechaVenta);//falta el caso que no exista.
         for (Venta venta:ventaList){
             montoFechaDto.setVentasPorDia(montoFechaDto.getVentasPorDia() + 1);
             montoFechaDto.setMontoTotalPorDia(montoFechaDto.getMontoTotalPorDia()+ venta.getTotal());
@@ -176,12 +178,15 @@ public class VentaService implements IVentaService{
     public MayorVentaDto getMayorVenta() {
 
         List<Venta> ventaList = ventaRepository.findAll();
-        Venta ventaMayor = new Venta();
-        ventaMayor.setTotal(0.0);
+        Venta ventaMayor = null;
         for (Venta venta: ventaList){
-            if (venta.getTotal()> ventaMayor.getTotal()){
+            if (ventaMayor == null || venta.getTotal() > ventaMayor.getTotal()){
                 ventaMayor = venta;
             }
+        }
+
+        if (ventaMayor == null){
+            throw new IllegalArgumentException("La lista de ventas esta vacia");
         }
 
         MayorVentaDto mayorVentaDto = new MayorVentaDto();
@@ -189,8 +194,16 @@ public class VentaService implements IVentaService{
         mayorVentaDto.setTotal(ventaMayor.getTotal());
         mayorVentaDto.setApellidoCliente(ventaMayor.getUnCliente().getApellido());
         mayorVentaDto.setNombreCliente(ventaMayor.getUnCliente().getNombre());
-        //mayorVentaDto.setCantidadProductos(ventaMayor.getListaVentaDetalle().get().getCantidadProducto());
+        mayorVentaDto.setCantidadProductos(getCantidadProductosVenta(ventaMayor.getListaVentaDetalle()));
         return mayorVentaDto;
+    }
+
+    public Long getCantidadProductosVenta(List<VentaDetalle> ventaDetalleList){
+        Long cantidadProductos = 0L;
+        for (VentaDetalle ventaDetalle: ventaDetalleList){
+            cantidadProductos = cantidadProductos + ventaDetalle.getCantidadProducto();
+        }
+        return cantidadProductos;
     }
 
 }

@@ -7,7 +7,7 @@ public class MayorVentaDto {
 
     private Long codigoVenta;
     private Double total;
-    private Double cantidadProductos;
+    private Long cantidadProductos;
     private String nombreCliente;
     private String apellidoCliente;
 }
